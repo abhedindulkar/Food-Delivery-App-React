@@ -37,7 +37,6 @@ body {
     border-radius: 14px;
     margin: 10px 7px;
     padding: 9px;
-
 }
 
 .rest-card img {
@@ -47,12 +46,9 @@ body {
 }
 
 .rest-card-container {
-    /* display: flex; */
-    /* justify-content: left; */
-    /* flex-wrap: wrap; */
-
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    display: flex;
+    justify-content: left;
+    flex-wrap: wrap;
 }
 
 .footer {
@@ -77,4 +73,8 @@ body {
     color: white;
     padding: 0;
     margin: 0;
+}
+
+.searchBar {
+    display: flex;
 }
