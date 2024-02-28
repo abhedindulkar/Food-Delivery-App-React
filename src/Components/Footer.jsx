@@ -1,4 +1,12 @@
+import { useEffect } from "react";
+
 const Footer = () => {
+    useEffect(() => {
+        console.log("footer useEfffect");
+    }, []);
+
+    console.log("footer rendering");
+
     return (
         <div className="footer">
             <ul>

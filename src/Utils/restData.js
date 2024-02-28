@@ -855,7 +855,7 @@ const restaurantData = [
             shortDescription: "options available",
             fontColor: "#7E808C",
           },
-        ],
+        ]   ,
       },
       isOpen: true,
       type: "F",
@@ -1379,5 +1379,9 @@ const restaurantData = [
     },
   },
 ];
+
+let rest = 2;
+
+rest 
 
 export default restaurantData;

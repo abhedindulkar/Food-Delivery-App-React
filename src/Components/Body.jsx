@@ -4,105 +4,42 @@ import { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import Skeletons from "./Skeletons";
 import "react-loading-skeleton/dist/skeleton.css";
-import { filter } from "lodash";
+import useRestaurantLists from "../Utils/useRestaurantList";
+import FilterComponents from "./FilterComponents";
 
 const Body = () => {
-    let [listOfRestaurants, setListOfRestaurants] = useState([]);
-    let [originalRestaurant, setOriginalRestaurant] = useState([]);
     let [searchText, setSearchText] = useState("");
+    let { listOfRestaurants, originalRestaurant, setListOfRestaurants } =
+        useRestaurantLists();
 
     function filterRestaurants() {
         let newRes = listOfRestaurants.filter(
-            (restaurant) => restaurant.info.avgRating > 4,
+            (restaurant) => restaurant.info.avgRating >= 4,
         );
-
-        console.log("newRes", newRes);
-        // console.log('')
 
         setListOfRestaurants(newRes);
         return;
     }
 
-    useEffect(() => {
-        fetchData();
-    }, []);
-
-    const fetchData = async () => {
-        let data = await fetch(
-            "https://www.swiggy.com/dapi/restaurants/list/v5?lat=19.2181714&lng=72.9582367&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING",
-            {
-                mode: "cors",
-            },
-        );
-
-        // console.log("data", await data.json());
-
-        let json = await data.json();
-
-        console.log(
-            "json",
-            json?.data?.cards[4]?.card.card.gridElements.infoWithStyle
-                .restaurants,
-        );
-
-        setListOfRestaurants(
-            json?.data?.cards[4]?.card.card.gridElements.infoWithStyle
-                .restaurants,
-        );
-
-        setOriginalRestaurant(
-            json?.data?.cards[4]?.card.card.gridElements.infoWithStyle
-                .restaurants,
-        );
-
-        // console.log("set list", listOfRestaurants);
-    };
-
     return (
-        <div className="body">
-            <div className="searchBar">
-                <input
-                    type="text"
-                    className="search-input"
-                    value={searchText}
-                    onChange={(e) => {
-                        // console.log("changing filter values");
-                        setSearchText(e.target.value);
-
-                        // console.log("newtext", searchText);
-                    }}
-                />
-                <button
-                    type="button"
-                    onClick={() => {
-                        console.log("onclick");
-                        const filteredRestaurant = originalRestaurant.filter(
-                            (res) => {
-                                // console.log("res", res);
-                                return res.info.name
-                                    .toLowerCase()
-                                    .includes(searchText.toLowerCase());
-                            },
-                        );
-
-                        setListOfRestaurants(filteredRestaurant);
-                    }}
-                >
-                    Filter
-                </button>
-                <button type="button" onClick={() => filterRestaurants()}>
-                    Filter Restaurants
-                </button>
-            </div>
-            <div className="rest-card-container">
-                {listOfRestaurants.length > 0 &&
+        <div className="body pl-60 pr-60 sm:pl-40 sm:pr-40">
+            <FilterComponents
+                searchText={searchText}
+                setSearchText={setSearchText}
+                originalRestaurant={originalRestaurant}
+                setListOfRestaurants={setListOfRestaurants}
+                filterRestaurants={filterRestaurants}
+            />
+            <div className="rest-card-container grid lg:grid-cols-4 gap-1 sm:grid-cols-3">
+                {listOfRestaurants === null && <Skeletons />}
+                {listOfRestaurants !== null &&
+                    listOfRestaurants.length > 0 &&
                     listOfRestaurants.map((restaurant) => (
                         <RestaurantCard
                             resData={restaurant}
                             key={restaurant.info.id}
                         />
                     ))}
-                {listOfRestaurants.length === 0 && <Skeletons />}
             </div>
         </div>
     );
