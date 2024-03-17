@@ -7,6 +7,10 @@ import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 import ErrorPage from "./Components/ErrorElement";
 import Contact from "./Components/Contact";
 import Restaurant from "./Components/Restaurant";
+import UserContext from "./Utils/UserContext";
+import { Provider } from "react-redux";
+import appStore from "./Utils/appStore";
+import Cart from "./Components/Cart";
 
 /**
  * Header
@@ -25,9 +29,15 @@ const About = lazy(() => import("./Components/About"));
 const Main = () => {
     return (
         <>
-            <Header />
-            <Outlet />
-            <Footer />
+            <Provider store={appStore}>
+                <UserContext.Provider value={{ loggedInUser: "abhed" }}>
+                    <Header />
+                </UserContext.Provider>
+                <UserContext.Provider value={{ loggedInUser: "Indulkar" }}>
+                    <Outlet />
+                </UserContext.Provider>
+                <Footer />
+            </Provider>
         </>
     );
 };
@@ -67,6 +77,11 @@ const router = createBrowserRouter([
             {
                 path: "/contact-us",
                 element: <Contact />,
+                errorElement: <ErrorPage />,
+            },
+            {
+                path: "/cart",
+                element: <Cart />,
                 errorElement: <ErrorPage />,
             },
             {
@@ -112,5 +127,3 @@ root.render(<RouterProvider router={router} />);
 //     </h1>
 //   );
 //   const element = <div>{element2} this is an element</div>;
-
-

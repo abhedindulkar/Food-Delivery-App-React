@@ -5,7 +5,7 @@ const Skeletons = () => {
     return (
         <>
             {[...Array(10)].map((e, i) => (
-                <div className="rest-card">
+                <div className="rest-card w-80 mx-2" key={i}>
                     <Skeleton height={200} />
                     <Skeleton count={1} />
                     <Skeleton count={1} style={{ width: "50%" }} />

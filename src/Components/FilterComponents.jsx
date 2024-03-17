@@ -6,14 +6,15 @@ const FilterComponents = ({
     setSearchText,
     originalRestaurant,
     setListOfRestaurants,
+    resetRestaurants,
     filterRestaurants,
 }) => {
     return (
-        <div className="searchBar flex items-bottom  pl-80 my-5 justify-end">
+        <div className="searchBar flex items-bottom my-5 justify-center">
             <TextField
                 label="Restaurant"
                 id="outlined-size-small"
-                defaultValue="Small"
+                data-testid="restFilter"
                 size="small"
                 className="search-input border-gray-500 border-solid border-2 rounded-sm mr-2"
                 value={searchText}
@@ -25,7 +26,7 @@ const FilterComponents = ({
             <Button
                 variant="outlined"
                 type=""
-                className=" mr-3"
+                className="mr-3"
                 sx={{ mr: 1 }}
                 onClick={() => {
                     console.log("onclick");
@@ -44,8 +45,16 @@ const FilterComponents = ({
             >
                 Filter
             </Button>
-            <Button variant="outlined" onClick={() => filterRestaurants()}>
-                Filter Restaurants
+            <Button
+                variant="outlined"
+                className="mr-3"
+                sx={{ mr: 1 }}
+                onClick={() => filterRestaurants()}
+            >
+                Top Restaurants
+            </Button>
+            <Button variant="outlined" onClick={() => resetRestaurants()}>
+                Reset Search
             </Button>
         </div>
     );

@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.menu-item-coupons::before {
+    content: "\20B9";
+    margin-right: 0.1rem;
+}

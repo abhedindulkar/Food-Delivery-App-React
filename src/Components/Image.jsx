@@ -1,4 +1,4 @@
-export default image = () => {
+export const Image = () => {
     return (
         <>
             <svg
