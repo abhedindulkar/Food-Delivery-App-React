@@ -9,28 +9,7 @@ const cartSlice = createSlice({
     },
     reducers: {
         assignItems(state, actions) {
-            // state.items.push(actions.payload);
-
-            // console.log(actions.payload);
-            // console.log('finding the duplicate', current(state).items.find((item) => {
-            //     // console.log('item', item)
-            //     return item.name  === actions.payload.name
-            // }))
-
-            // let item = [...current(state)].items.filter((item) => {
-            //     console.log('item', item)
-            //     return item.name === actions.payload.name
-            // });
-
-            // console.log('after filtering', item);
-            // if (item === null)
-            // {
             state.items = actions.payload;
-
-            // return
-            // }
-
-            // state.items;
         },
 
         addQuantity(state, action) {
